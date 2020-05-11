@@ -1,0 +1,48 @@
+<div style="display: flex; flex-direction: column; justify-content: center; ">
+    <h1 style="align-self: center; margin: 30px; ">What's For Dinner?</h1>
+    <p>1. Begin by selecting list of available ingredients: </p>
+    <div style="display: flex; flex-direction: row; margin: 0px 30px;">
+        <select class="form-control" [(ngModel)]="selectedIngredient">
+            <option value="">-- Select Ingredient --</option>
+            <option *ngFor="let ingredient of listOfIngredients" [ngValue]="ingredient">{{ingredient}}</option>
+        </select>
+        <button type="button" class="btn btn-danger" (click)="addIngredient()" style="min-width: fit-content; margin-left: 6px; ">Add Ingredient</button>
+    </div>
+    <div style="margin: 10px 30px; ">
+        <p style="margin-bottom: 0px; ">Selected: </p>
+        <div class="card" style="min-height: 84px; display: flex; flex-direction: row; flex-flow: wrap; padding: 0px 4px 4px 0px; max-height: 300px; overflow-y: auto; ">
+            <button type="button" class="btn btn-info removable-button" style="width: fit-content; height: fit-content; margin: 4px 0px 0px 4px; "
+                (click)="removeIngredient(ingredient)" *ngFor="let ingredient of selectedIngredients">{{ingredient}}</button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" style="margin: 0px 30px" (click)="findRecipe()">Find Recipes!</button>
+
+    <p *ngIf="noRecipeFound" style="color: #eb6864; margin: 5px 30px">Oops! Unable to find recipes. Please try again with different ingredients!</p>
+    <p style="margin-top: 25px; " *ngIf="listOfRecipes.length != 0">2. Select recipe: </p>
+    <div style="margin: 0px 30px;">
+        <div *ngFor="let recipe of listOfRecipes">
+            <div style="display: flex; flex-direction: row; height: 100px; margin-bottom: 20px; border: 2px solid white" class="recipe"
+                (click)="viewRecipe(recipe.id)">
+                <div style="width: 96px; height: 96px; ">
+                    <img [src]="recipe.image" style="height: 96px; width: 96px; object-fit: cover; ">
+                </div>
+                <div style="margin: 0px 10px; width: 100%; ">
+                    <h2>{{recipe.title}}</h2>
+                    <div style="margin-left: 5px; ">
+                        <p style="margin-bottom: 0px; ">Missing Ingredient(s): </p>
+                        <p style="text-transform: capitalize; margin-left: 5px; color: #eb6864">{{recipe.missedIngredientsString}}</p>
+                    </div>
+                </div>
+                <div style="min-width: fit-content; display: flex; margin-right: 4px; ">
+                    <img src="../../assets/like-icon.png" style="height: 25px; width: 20px; margin-right: 5px; ">
+                    <p class="text-info">
+                        <strong>{{recipe.likes}}</strong>
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="listOfInstructions[recipe.id]" style="margin: 0px 15px 30px">
+                <p *ngFor="let instruction of listOfInstructions[recipe.id]">{{instruction}}</p>
+            </div>
+        </div>
+    </div>
+</div>

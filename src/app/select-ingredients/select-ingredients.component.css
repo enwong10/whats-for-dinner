@@ -1,0 +1,14 @@
+.badge{
+    max-width: fit-content;
+}
+
+.removable-button:hover {
+    background-color: #eb6864;
+    border-color: #eb6864;
+    color: white;
+}
+
+.recipe:hover {
+    border: 2px solid lightgrey !important;
+    cursor: pointer;
+}
